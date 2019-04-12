@@ -14,15 +14,15 @@ class TabLink {
     if(this.tabData == "all"){
       // If `all` is true, select all cards regardless of their data attribute values
       this.cards = document.querySelectorAll('.card');
-    } else {
+    } else if (this.tabData != "all") {
       // else if `all` is false, only select the cards with matching this.tabData values
-      this.cards = document.querySelectorAll(`${this.tabElement.dataset.tab}`);
+      this.cards = document.querySelectorAll(`.card[data-tab="${this.tabData}"]`);
     }
     //<- Delete this comment block when you work on the if statement
 
      // Map over the newly converted NodeList we just created in our if statement above. Convert each this.cards element into a new instance of the TabCard class. Pass in a card object to the TabCard class. 
      this.cards = Array.from(this.cards).map(card => new TabCard(card));
-
+  
     // Add a click event that invokes this.selectTab
     this.tabElement.addEventListener('click', () => this.selectTab());
   };
@@ -46,6 +46,7 @@ selectTab(){
   
      // Notice we are looping through the this.cards array and invoking selectCard() from the TabCard class. Just un-comment the code and study what is happening here.
   this.cards.forEach(card => card.selectCard());
+
   }
 }
 
@@ -53,6 +54,7 @@ class TabCard {
   constructor(cardElement){
     // Assign this.cardElement to the cardElement DOM reference
   this.cardElement = cardElement;
+  console.log(this.cardElement)
   }
   selectCard(){
     // Update the style of this.cardElement to display = "flex"
@@ -72,3 +74,6 @@ class TabCard {
 */
 let tabs = document.querySelectorAll('.tab');
 tabs.forEach( tab => new TabLink(tab));
+
+// Junk code
+// `${this.tabElement.dataset.tab}`
